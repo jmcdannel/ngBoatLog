@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" ng-app="boatlogApp">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boat Log</title>
+
+    <link href="./assets/css/app.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.cyan-light_blue.min.css">
+
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">{{pageTitle}}</span>
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <div class="demo-avatar-dropdown">
+            <span>hello@example.com</span>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" menu-close ui-sref="home" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" menu-close ui-sref="log"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_comfy</i>Log</a>
+          <a class="mdl-navigation__link" menu-close href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">terrain</i>Rivers</a>
+          <a class="mdl-navigation__link" menu-close href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Profile</a>
+          <a class="mdl-navigation__link" menu-close href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">equalizer</i>Stats</a>
+          <a class="mdl-navigation__link" menu-close href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Friends</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--grey-100" ui-view>
+
+      </main>
+    </div>
+
+    <script src="./assets/js/foundation.js"></script>
+    <script src="./assets/js/templates.js"></script>
+    <!-- <script src="./assets/js/routes.js"></script> -->
+    <script src="./assets/js/app.js"></script>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,54 @@
+
+<button id="btn-addrun" ui-sref="log-entry" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+  <i class="material-icons">add</i>
+</button>
+<div class="grid-block">
+  <table class="runs">
+    <thead>
+      <tr class="runs-column-labels">
+        <th>Date</th>
+        <th>Section</th>
+        <th>Days / Runs</th>
+        <th>Feet</th>
+        <th>Miles</th>
+        <th>Flow</th>
+      </tr>
+      <tr class="runs-column-totals">
+        <td>2016</td>
+        <td></td>
+        <td style="white-space:nowrap">
+          <strong>{{totals.runs}}</strong> <small>runs</small>
+          /
+          <strong>{{totals.days}}</strong> <small>days</small>
+        </td>
+        <td style="white-space:nowrap">
+          <strong>{{totals.feet}}</strong> <small>ft.</small>
+        </td>
+        <td style="white-space:nowrap">
+          <strong>{{totals.miles}}</strong> <small>mi.</small>
+        </td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="run in runs">
+        <td>{{run.rundate | date: 'M/d'}}</td>
+        <td>
+          {{run.section}}
+        </td>
+        <td style="white-space:nowrap">
+          {{run.days}} <small>day(s)</small>
+          /
+          {{run.numruns}} <small>run(s)</small>
+        </td>
+        <td style="white-space:nowrap">
+          {{run.vertical}} <small>ft.</small>
+        </td>
+        <td style="white-space:nowrap">
+          {{run.miles}} <small>mi.</small>
+        </td>
+        <td>{{run.flow}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,49 @@
+@import "settings";
+@import "foundation";
+@import "partials/material";
+
+main {
+  padding: 1em 0;
+  @include breakpoint(large down) {
+    padding: 1em;
+  }
+}
+
+.runs {
+  width: 100%;
+
+  td, th {
+    padding: 1em;
+    text-align: left;
+  }
+
+  tbody > tr > td {
+    border-bottom: 1px solid #EEE;
+  }
+}
+
+.runs-column-labels {
+  background: #333;
+  color: #FFF;
+}
+
+.runs-column-totals {
+    background: #666;
+    color: #FFF;
+
+    small {
+      color: #FFF;
+    }
+}
+
+.runs-year {
+    background: #999;
+}
+
+
+#btn-addrun {
+  position: fixed;
+  z-index: 100;
+  right: 1em;
+  bottom: 1em;
+}

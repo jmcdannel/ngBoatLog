@@ -1,0 +1,45 @@
+
+<div class="grid-container">
+
+  <div class="grid-block">
+    <h2>Login / Resgister</h2>
+  </div>
+
+  <div class="grid-block">
+    <ul class="button-group">
+        <li><button  class="btn btn-primary" ng-click="oauthLogin('facebook')">Facebook</button></li>
+        <li><button  class="btn btn-primary" ng-click="oauthLogin('google')">Google</button></li>
+        <li><button  class="btn btn-primary" ng-click="oauthLogin('twitter')">Twitter</button></li>
+        <li><button  class="btn btn-primary" ng-click="oauthLogin('github')">GitHub</button></li>
+    </ul>
+  </div>
+
+  <form role="form">
+    <div class="grid-block">
+
+      <label>
+        email
+        <input id="loginEmail" required name="email" type="email" ng-model="email" />
+      </label>
+
+      <label>
+        password
+        <input id="loginPass" required name="pass" type="password" ng-model="pass" class="form-control" />
+      </label>
+
+      <label ng-cloak ng-show="createMode">
+        confirm pass
+        <input id="loginConfirm" required name="confirm" type="password" ng-model="confirm" class="form-control" />
+      </label>
+    </div>
+
+    <div class="grid-block">
+      <button  class="btn btn-primary" ng-click="passwordLogin(email, pass)" ng-hide="createMode">Log In</button>
+      <button  class="btn btn-default" ng-click="createMode = true" ng-hide="createMode">Register</button>
+      <button  class="btn btn-primary" ng-cloak ng-show="createMode"
+              ng-click="createAccount(email, pass, confirm)">Create Account</button>
+      <button  class="btn btn-default" ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>
+    </div>
+  </form>
+  <p ng-show="err" class="bg-danger">{{err}}</p>
+</div>
