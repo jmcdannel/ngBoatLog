@@ -16,12 +16,12 @@
         var endDate = date;
 
 
-        $http.({
+        $http({
           url: 'http://waterservices.usgs.gov/nwis/iv/',
           method: 'GET',
           params: {
             format: 'json',
-            sites: siteId,
+            site: siteId,
             parameterCd: unitParam,
             startDT: startDate.toISOString(),
             endDT: endDate.toISOString()
@@ -34,7 +34,8 @@
             datetime: new Date(flow.dateTime)
           });
 
-        return defered.promise;
+          return defered.promise;
+        });
       }
 
       return {
