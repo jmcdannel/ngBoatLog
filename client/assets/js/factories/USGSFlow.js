@@ -34,12 +34,47 @@
             datetime: new Date(flow.dateTime)
           });
 
-          return defered.promise;
         });
+        return defered.promise;
+      }
+
+      function _calcFlow(formula, unitType, date) {
+        var defered = $q.defer();
+        var formulaParts = formula.split(' ');
+        var sites = [], operators = [];
+
+        formulaParts.forEach(function(part){
+          if (part === '-' || part === '+') {
+            operators.push(part);
+          } else {
+            sites.push(_getFlow(part, unitType, date));
+          }
+        });
+
+        $q.all(sites).then(function(siteFlows) {
+          var operatorIdx = 0;
+          var initialSiteFlow = siteFlows[0];
+          var calculatedFlow = initialSiteFlow.flow;
+          var currentOperator;
+          siteFlows.shift();
+          
+          siteFlows.forEach(function(site) {
+            currentOperator = operators[operatorIdx];
+            if (currentOperator === '-') {
+              calculatedFlow -= site.flow;
+            } else if (currentOperator === '+') {
+              calculatedFlow += site.flow;
+            }
+          });
+
+          defered.resolve({flow: calculatedFlow, datetime: initialSiteFlow.datetime});
+        });
+        return defered.promise;
       }
 
       return {
-        getFlow: _getFlow
+        getFlow: _getFlow,
+        calculateFlow: _calcFlow
       };
 
     });

@@ -6,7 +6,11 @@
       // create a new service based on $firebaseArray
       var Runs = $firebaseObject.$extend({
         getFlow: function(date) {
-          return USGSFlow.getFlow(this.usgsSite, this.usgsUnit, date);
+          if (this.usgsSite) {
+            return USGSFlow.getFlow(this.usgsSite, this.usgsUnit, date);
+          } else if (this.usgsFormula) {
+            return USGSFlow.calculateFlow(this.usgsFormula, this.usgsUnit, date);
+          }
         }
       });
 

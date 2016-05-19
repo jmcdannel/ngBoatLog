@@ -18,43 +18,42 @@ angular.module('boatlogApp')
     $timeout,
     UserLog,
     Run,
-    USGSFlow,
-    Ref,
     FoundationApi,
     currentAuth) {
 
     var run = null;
+        var sectionTimer = false;
 
     $scope.rundate = new Date();
     $rootScope.pageTitle = 'Add Log Entry';
     $scope.days = '1';
     $scope.numruns = '1';
-
-    var sectionTimer = false;
-    $scope.$watch('section', function(){
-      if(sectionTimer){
-        $timeout.cancel(sectionTimer)
-      }
-      sectionTimer = $timeout(function(){
-        if ($scope.section) {
-          run = new Run($scope.section);
-
-          run.$loaded(function(run) {
-            if (run.$value === null) {
-              return;
-            }
-            //load run properties
-            $scope.miles = run.miles;
-            $scope.vertical = run.vertical;
-            $scope.river = run.river;
-            //load run flow
-            loadFlow();
-          });
-        }
-      }, 250);
-    });
-
+    $scope.addRun = addRun;
+    $scope.$watch('section', loadRun);
     $scope.$watch('rundate', loadFlow);
+
+    function loadRun() {
+        if(sectionTimer){
+          $timeout.cancel(sectionTimer)
+        }
+        sectionTimer = $timeout(function(){
+          if ($scope.section) {
+            run = new Run($scope.section);
+
+            run.$loaded(function(run) {
+              if (run.$value === null) {
+                return;
+              }
+              //load run properties
+              $scope.miles = run.miles;
+              $scope.vertical = run.vertical;
+              $scope.river = run.river;
+              //load run flow
+              loadFlow();
+            });
+          }
+        }, 250);
+    }
 
     function loadFlow() {
       if (run === null) {
@@ -62,14 +61,12 @@ angular.module('boatlogApp')
       }
       run.getFlow($scope.rundate).then(function(result) {
         $scope.flow = result.flow;
-        console.log(result.datetime, result.flow);
         FoundationApi.publish('usgs-notifications', 'clearall');
         FoundationApi.publish('usgs-notifications', {
           content: 'Flow as of ' + result.datetime.toLocaleString()
         });
       });
     }
-
 
     // $scope.section = 'asdf';
     // $scope.river = 'asdf';
@@ -80,9 +77,25 @@ angular.module('boatlogApp')
     // $scope.flow = '12'
     // $scope.notes = 'asdf';
 
-    $scope.addRun = function() {
+    function addRun() {
 
-      var runData = {
+      var runData = getRunData();
+
+      var log = new UserLog(currentAuth.uid); //TODO: change to log entry factory
+      log.$add(runData);
+
+      if (run.$value === null) {
+        run.river = runData.river;
+        run.miles = runData.miles;
+        run.vertical = runData.vertical;
+        run.$save();
+      }
+      reset();
+      $state.go('log');
+    }
+
+    function getRunData() {
+      return {
         rundate: new Date($scope.rundate).getTime(),
         section: $scope.section,
         river: $scope.river,
@@ -94,23 +107,9 @@ angular.module('boatlogApp')
         notes: $scope.notes || null,
         timestamp: Firebase.ServerValue.TIMESTAMP
       };
+    }
 
-      var log = new UserLog(currentAuth.uid);
-      log.$add(runData);
-
-
-      Ref.child('runs').child(runData.section).once('value', function(snapshot) {
-
-        if(snapshot.val() === null) {
-          snapshot.ref().set({
-            river: runData.river,
-            miles: runData.miles,
-            vertical: runData.vertical
-          });
-
-        }
-      });
-
+    function reset() {
       $scope.rundate = '';
       $scope.section = '';
       $scope.river = '';
@@ -120,10 +119,8 @@ angular.module('boatlogApp')
       $scope.vertical = ''
       $scope.flow = ''
       $scope.notes = '';
+    }
 
-      $state.go('log');
-
-    };
   });
 
 })();
