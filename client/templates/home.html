@@ -1,7 +1,29 @@
 <div class="grid-container">
-  <p>
-    <button ui-sref="login" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-      Login
-    </button>
-  </p>
+
+  <section ng-show="isLoggedIn">
+
+    <log-stats totals="totals"></log-stats>
+
+    <div class="grid-content">
+      <h4>Last 5 Runs</h4>
+    </div>
+
+    <log-table runs="runs"></log-table>
+
+    <div class="grid-content">
+      <p class="text-right">
+        <a ui-sref="log">View All</a>
+      </p>
+    </div>
+
+  </section>
+
+  <div class="grid-content content-container" ng-show="!isLoggedIn">
+    <p>
+      <button ui-sref="login" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        Login
+      </button>
+    </p>
+  </div>
+
 </div>

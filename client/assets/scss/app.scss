@@ -2,8 +2,16 @@
 @import "foundation";
 @import "partials/material";
 
+
+//https://color.adobe.com/Canada-Post-Theme-color-theme-8085969/edit/?copy=true&base=2&rule=Custom&selected=1&name=Copy%20of%20Canada%20Post%20Theme&mode=rgb&rgbvalues=0.8549019607843137,0.1607843137254902,0.10980392156862745,0.06274509803921569,0.48627450980392156,0.7529411764705882,0,0.28627450980392155,0.5647058823529412,0.2,0.2,0.2,0.5450980392156862,0.5450980392156862,0.5450980392156862&swatchOrder=0,1,2,3,4
+
 body {
   background: #222;
+  color: #EEE;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #EEE;
 }
 
 main {
@@ -12,6 +20,10 @@ main {
   }
 }
 
+log-table {
+  width: 100%;
+
+}
 .runs {
   width: 100%;
 
@@ -47,6 +59,10 @@ main {
   }
 }
 
+.content-container {
+  padding: 2em;
+}
+
 .log-stats {
   overflow-y: visible;
   overflow: visible;
@@ -66,7 +82,6 @@ main {
   }
 }
 .log-stat {
-
   background: #DA291C;
   color: #FFF;
   font-size: 1.4em;
@@ -75,6 +90,20 @@ main {
     color: #FFF;
   }
 
+}
+
+.home-log-stats {
+  .log-stat-year {
+    font-size: 1.4em;
+    padding: .5em 0;
+  }
+
+  .log-stat,
+  .log-stat-year {
+    font-size: 1.2em;
+    margin: .5em 1em;
+    border-radius: 2em;
+  }
 }
 
 .form {

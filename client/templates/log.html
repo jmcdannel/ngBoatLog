@@ -9,9 +9,7 @@
       <div zf-as-content="" position="bottom">
         <ul>
           <li><a ng-click="selectYear()">Show All</a></li>
-          <li><a ng-click="selectYear(2016)">2016</a></li>
-          <li><a ng-click="selectYear(2015)">2015</a></li>
-          <li><a ng-click="selectYear(2014)">2014</a></li>
+          <li ng-repeat="year in years"><a ng-click="selectYear(year)">{{year}}</a></li>
         </ul>
       </div>
     </div>
@@ -30,40 +28,5 @@
   </div>
 </div>
 <div class="grid-block">
-  <table class="runs">
-    <thead>
-      <tr class="runs-column-labels">
-        <th>Date</th>
-        <th>Section</th>
-        <th>
-          Days
-          <span class="extra"> / Runs</span></th>
-        <th>Feet</th>
-        <th>Miles</th>
-        <th>Flow</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="run in runs">
-        <td>{{run.rundate | date: 'M/d'}}</td>
-        <td>
-          {{run.section}}
-        </td>
-        <td style="white-space:nowrap">
-          {{run.days}} <small class="extra">day(s)</small>
-          <span class="extra">
-            /
-            {{run.numruns}} <small>run(s)</small>
-          </span>
-        </td>
-        <td style="white-space:nowrap">
-          {{run.vertical}} <small class="extra">ft.</small>
-        </td>
-        <td style="white-space:nowrap">
-          {{run.miles}} <small class="extra">mi.</small>
-        </td>
-        <td>{{run.flow}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <log-table runs="runs"></log-table>
 </div>
