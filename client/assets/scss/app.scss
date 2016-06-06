@@ -26,7 +26,7 @@ log-table {
 }
 .runs {
   width: 100%;
-
+  margin-bottom: 100px;
   background: #107CC0;
 
   th {
@@ -70,19 +70,28 @@ log-table {
 .log-year {
   overflow-y: visible;
   background: #333333;
+  padding: 0;
+
+  .action-sheet-container {
+    display: block;
+  }
 
   .button {
     background: #333333;
     color: #DA291C;
     font-size: 1.4em;
-    padding: .3em;
-    margin: .2em;
-    border-radius: 6px;
-    border: 1px solid smartscale(#DA291C, -25%);
+    padding: .6em;
+    margin: 0;
+    display: block;
+    width: 100%;
+    transition: color .2s ease;
+    &:hover {
+      color: smartscale(#DA291C, 10%);
+    }
   }
 }
 .log-stat {
-  background: #DA291C;
+  background: smartscale(#333, -20%);
   color: #FFF;
   font-size: 1.4em;
   padding: .5em 0;
