@@ -29,7 +29,7 @@
             // Auth refers to our $firebaseAuth wrapper in the example above
             'currentAuth': ['Auth', function(Auth) {
               // $waitForAuth returns a promise so the resolve waits for it to complete
-              return Auth.$waitForAuth();
+              return Auth.$waitForSignIn();
             }]
           }
       })
@@ -43,7 +43,7 @@
           'currentAuth': ['Auth', function(Auth) {
             // $requireAuth returns a promise so the resolve waits for it to complete
             // If the promise is rejected, it will throw a $stateChangeError (see above)
-            return Auth.$requireAuth();
+            return Auth.$requireSignIn();
           }]
         }
       })
@@ -57,7 +57,21 @@
           'currentAuth': ['Auth', function(Auth) {
             // $requireAuth returns a promise so the resolve waits for it to complete
             // If the promise is rejected, it will throw a $stateChangeError (see above)
-            return Auth.$requireAuth();
+            return Auth.$requireSignIn();
+          }]
+        }
+      })
+      .state('rivers', {
+        url: '/rivers',
+        templateUrl: 'templates/rivers.html',
+        controller: 'RiversController',
+        resolve: {
+          // controller will not be loaded until $requireAuth resolves
+          // Auth refers to our $firebaseAuth wrapper in the example above
+          'currentAuth': ['Auth', function(Auth) {
+            // $requireAuth returns a promise so the resolve waits for it to complete
+            // If the promise is rejected, it will throw a $stateChangeError (see above)
+            return Auth.$requireSignIn();
           }]
         }
       })

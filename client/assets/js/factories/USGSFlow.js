@@ -1,40 +1,87 @@
 (function() {
   'use strict';
   angular.module('boatlogApp')
-    .factory('USGSFlow', function($http, $q) {
+    .factory('USGSFlow', function($http, $q, $firebaseObject, Ref) {
 
+      var USGS_API_URL = 'http://waterservices.usgs.gov/nwis/iv/';
       var flow = null;
+      var lastImport = $firebaseObject(Ref.child('usgsimport'));
+
+      function _loadFlows(runs) {
+        lastImport.$loaded(function() {
+          if (_isExpired()) {
+            console.log('Log expired on: ', new Date(lastImport.$value));
+            //TODO: refactor into single request
+            runs.$loaded(function(runs) {
+              _.each(runs, function(run, idx) {
+                if (run.usgsSite) {
+                  _getFlow(run.usgsSite, run.usgsUnit).then(function(result) {
+                    run.flow = result.flow;
+                    run.flowUpdated = result.datetime.getTime();
+                    runs.$save(run);
+                  });
+                } else if (run.usgsFormula) {
+                  _calcMostRecentFlow(run.usgsFormula, run.usgsUnit).then(function(result) {
+                    run.flow = result.flow;
+                    run.flowUpdated = result.datetime.getTime();
+                    runs.$save(run);
+                  });
+                }
+              });
+
+              lastImport.$value = new Date().getTime();
+              lastImport.$save();
+
+            });
+          }
+        });
+      }
+
+      function _isExpired() {
+        var now, lastUpdated, expiry;
+        //return true;
+        console.log('lastImport', new Date(lastImport.$value));
+        if (!lastImport.$value) {
+          return true;
+        }
+
+        now = new Date();
+        lastUpdated = new Date(lastImport.$value);
+        expiry = 1000*60*15; //15 min
+
+        return (now.getTime() - lastUpdated.getTime() > expiry);
+      }
+
       function _getFlow(siteId, unitType, date) {
         var defered = $q.defer();
-        var unitParam = (unitType === 'cfs') ? '00060' : '00065';
-        date.setSeconds(0);
-        date.setMilliseconds(0);
-        date.setHours(12);
-        date.setMinutes(0);
-        var startDate = date;
-        date.setMinutes(15);
-        var endDate = date;
+        var period = 'PT2H';
+        var params = {
+          format: 'json',
+          site: siteId,
+          parameterCd: _getUnitParam(unitType)
+        };
+        if (date) {
+          angular.$extend(params, _getDateRange(date));
+        } else {
+          angular.$extend(params, { period: period });
+        }
 
-
-        $http({
-          url: 'http://waterservices.usgs.gov/nwis/iv/',
-          method: 'GET',
-          params: {
-            format: 'json',
-            site: siteId,
-            parameterCd: unitParam,
-            startDT: startDate.toISOString(),
-            endDT: endDate.toISOString()
-          }
-        }).success(function(data) {
-          flow = data.value.timeSeries[0].values[0].value[0];
+        var handleResponse = function(data) {
+          var flows = data.value.timeSeries[0].values[0].value;
+          var currentFlow = flows[flows.length-1];
 
           defered.resolve({
-            flow: flow.value,
-            datetime: new Date(flow.dateTime)
+            flow: currentFlow.value,
+            datetime: new Date(currentFlow.dateTime)
           });
+        }
 
-        });
+        $http({
+          url: USGS_API_URL,
+          method: 'GET',
+          params: params
+        }).success(handleResponse);
+
         return defered.promise;
       }
 
@@ -57,7 +104,7 @@
           var calculatedFlow = initialSiteFlow.flow;
           var currentOperator;
           siteFlows.shift();
-          
+
           siteFlows.forEach(function(site) {
             currentOperator = operators[operatorIdx];
             if (currentOperator === '-') {
@@ -72,8 +119,43 @@
         return defered.promise;
       }
 
+      function _getUnitParam(unitType) {
+        return (unitType === 'cfs') ? '00060' : '00065';
+      }
+
+      function _getDateRange(date) {
+        var startDate, endDate;
+        var currentMinutes = date.getMinutes();
+
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+        startDate = new Date(date.getTime());
+        endDate = new Date(date.getTime());
+
+        if (currentMinutes <= 15) {
+          startDate.setMinutes(0);
+          endDate.setMinutes(15);
+        } else if (currentMinutes <= 30) {
+          startDate.setMinutes(15);
+          endDate.setMinutes(30);
+        } else if (currentMinutes <= 45) {
+          startDate.setMinutes(30);
+          endDate.setMinutes(45);
+        } else {
+          startDate.setMinutes(45);
+          endDate.setMinutes(0);
+          endDate.setHours(date.getHours() + 1);
+        }
+
+        return {
+          startDT: startDate.toISOString(),
+          endDT: endDate.toISOString()
+        }
+      }
+
       return {
         getFlow: _getFlow,
+        loadFlows: _loadFlows,
         calculateFlow: _calcFlow
       };
 

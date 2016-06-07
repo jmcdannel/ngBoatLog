@@ -59,6 +59,10 @@ angular.module('boatlogApp')
       if (run === null) {
         return;
       }
+      var date = $scope.rundate;
+      date.setSeconds(0);
+      date.setMilliseconds(0);
+      date.setMinutes(0);
       run.getFlow($scope.rundate).then(function(result) {
         $scope.flow = result.flow;
         FoundationApi.publish('usgs-notifications', 'clearall');

@@ -1,0 +1,20 @@
+<table class="rivers">
+  <thead>
+    <tr class="rivers-column-labels">
+      <th>Section</th>
+      <th>Flow</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="river in rivers">
+      <td>
+        {{river.$id}}
+      </td>
+      <td style="white-space:nowrap">
+        <span class="success label" ng-show="river.flow">
+          <strong class="flow-label">{{river.flow}} <small>{{river.usgsUnit}}</small></strong>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>

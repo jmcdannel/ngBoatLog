@@ -12,7 +12,7 @@ angular.module('boatlogApp')
 
     $scope.oauthLogin = function(provider) {
       $scope.err = null;
-      Auth.$authWithOAuthPopup(provider, {rememberMe: true}).then(redirect, showError);
+      Auth.$signInWithPopup(provider, {rememberMe: true}).then(redirect, showError);
     };
 
     $scope.anonymousLogin = function() {
@@ -75,7 +75,7 @@ angular.module('boatlogApp')
 
 
     function redirect() {
-      $location.path('/log');
+      $location.path('/home');
     }
 
     function showError(err) {

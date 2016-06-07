@@ -30,8 +30,12 @@
           templateUrl: 'templates/log-entry.html',
           controller: 'LogEntryController'
         })
+        .when('/rivers', {
+          templateUrl: 'views/rivers.html',
+          controller: 'RiversController'
+        })
 
-        .when('/templates', {
+        .when('/login', {
           templateUrl: 'views/login.html',
           controller: 'LoginController'
         })

@@ -20,11 +20,10 @@ main {
   }
 }
 
-log-table {
+log-table, river-list {
   width: 100%;
-
 }
-.runs {
+.runs, .rivers {
   width: 100%;
   margin-bottom: 100px;
   background: #107CC0;
@@ -122,6 +121,9 @@ log-table {
   }
 }
 
+.flow-label {
+  font-size: 1.5em;
+}
 
 #btn-addrun {
   position: fixed;

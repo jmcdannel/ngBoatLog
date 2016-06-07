@@ -1,15 +1,17 @@
 (function() {
   'use strict';
   angular.module('boatlogApp')
-    .factory('Runs', ['$firebaseArray', 'Ref',
-    function($firebaseArray, Ref) {
+    .factory('Runs', ['$firebaseArray', 'Ref', 'USGSFlow',
+    function($firebaseArray, Ref, USGSFlow) {
       // create a new service based on $firebaseArray
       var Runs = $firebaseArray.$extend({
 
       });
 
       return function() {
-        return new Runs(Ref.child('runs'));
+        var runs = new Runs(Ref.child('runs'));
+        USGSFlow.loadFlows(runs);
+        return runs;
       }
     }
   ]);
