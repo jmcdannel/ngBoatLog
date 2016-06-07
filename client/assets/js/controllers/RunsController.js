@@ -9,7 +9,7 @@
  * Controller of the boatlogApp
  */
 angular.module('boatlogApp')
-  .controller('RiversController', function ($scope, $rootScope, Runs, currentAuth) {
+  .controller('RunsController', function ($scope, $rootScope, Runs, currentAuth) {
 
     $rootScope.pageTitle = 'Rivers';
     $scope.riverList = new Runs();

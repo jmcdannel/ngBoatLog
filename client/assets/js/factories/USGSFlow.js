@@ -21,7 +21,7 @@
                     runs.$save(run);
                   });
                 } else if (run.usgsFormula) {
-                  _calcMostRecentFlow(run.usgsFormula, run.usgsUnit).then(function(result) {
+                  _calcFlow(run.usgsFormula, run.usgsUnit).then(function(result) {
                     run.flow = result.flow;
                     run.flowUpdated = result.datetime.getTime();
                     runs.$save(run);
@@ -61,9 +61,9 @@
           parameterCd: _getUnitParam(unitType)
         };
         if (date) {
-          angular.$extend(params, _getDateRange(date));
+          angular.extend(params, _getDateRange(date));
         } else {
-          angular.$extend(params, { period: period });
+          angular.extend(params, { period: period });
         }
 
         var handleResponse = function(data) {
@@ -101,16 +101,16 @@
         $q.all(sites).then(function(siteFlows) {
           var operatorIdx = 0;
           var initialSiteFlow = siteFlows[0];
-          var calculatedFlow = initialSiteFlow.flow;
+          var calculatedFlow =  parseFloat(initialSiteFlow.flow);
           var currentOperator;
           siteFlows.shift();
 
           siteFlows.forEach(function(site) {
             currentOperator = operators[operatorIdx];
             if (currentOperator === '-') {
-              calculatedFlow -= site.flow;
+              calculatedFlow -= parseFloat(site.flow);
             } else if (currentOperator === '+') {
-              calculatedFlow += site.flow;
+              calculatedFlow +=  parseFloat(site.flow);
             }
           });
 
