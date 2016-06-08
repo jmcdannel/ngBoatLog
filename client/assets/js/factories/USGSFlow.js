@@ -124,6 +124,7 @@
       }
 
       function _getDateRange(date) {
+        //TODO: make utility
         var startDate, endDate;
         var currentMinutes = date.getMinutes();
 

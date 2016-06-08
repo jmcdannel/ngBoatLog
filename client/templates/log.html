@@ -5,11 +5,11 @@
 <div class="grid-block log-stats">
   <div class="grid-content text-center log-year">
     <div zf-action-sheet="">
-      <div zf-as-button="" title="2016"></div>
+      <div zf-as-button="" title="{{year}}"></div>
       <div zf-as-content="" position="bottom">
         <ul>
-          <li><a ng-click="selectYear()">Show All</a></li>
-          <li ng-repeat="year in years"><a ng-click="selectYear(year)">{{year}}</a></li>
+          <li><a ui-sref="log({ year: 'All' })">Show All</a></li>
+          <li ng-repeat="year in years"><a ui-sref="log({ year: year })">{{year}}</a></li>
         </ul>
       </div>
     </div>

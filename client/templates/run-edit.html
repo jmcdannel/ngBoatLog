@@ -1,0 +1,90 @@
+
+<div class="grid-container">
+
+  <div class="grid-block">
+    <pre>{{run  | json}}</pre>
+  </div>
+</div>
+<div class="grid-container">
+
+  <div class="grid-block">
+
+    <form name="entryForm" class="form">
+      <div class="grid-block wrap">
+        <div class="small-12 medium-4 grid-content">
+          <label>
+            Section
+            <input type="text" id="section" ng-model="run.$id" placeholder="" ng-required="true" readonly>
+          </label>
+        </div>
+        <div class="small-12 medium-4 grid-content">
+          <label>
+            River / Drainage
+            <input type="text" id="river" ng-model="run.river" placeholder="" ng-required="true">
+          </label>
+        </div>
+        <div class="small-6 medium-2 grid-content">
+          <label>
+            &nbsp;
+            <span class="inline-label">
+              <input type="text" id="miles" ng-model="run.miles" placeholder="" ng-required="true">
+              <span class="form-label">Miles</span>
+            </span>
+          </label>
+        </div>
+        <div class="small-6 medium-2 grid-content">
+          <label>
+            &nbsp;
+            <span class="inline-label">
+              <input type="text" id="vertical" ng-model="run.vertical" placeholder="" ng-required="true">
+              <span class="form-label">Feet</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="grid-block wrap">
+        <div class="small-12 medium-4 grid-content">
+          <label>USGS Streamflow Type</label>
+          <label>
+            <input type="radio" ng-model="USGSFlowType" name="USGSFlowType" value="SiteID">
+            Single Site ID
+          </label>
+          <label>
+            <input type="radio" ng-model="USGSFlowType" name="USGSFlowType" value="Formula">
+            Site ID Formula
+          </label>
+          <label>
+            <input type="radio" ng-model="USGSFlowType" name="USGSFlowType" value="">
+            No USGS Flow Data
+          </label>
+        </div>
+        <div class="small-8 medium-6 grid-content">
+          <label>
+            USGS Site ID or Formula
+            <input type="text" id="flow" ng-model="usgsValue" placeholder="" ng-required="true">
+          </label>
+        </div>
+        <div class="small-4 medium-2 grid-content">
+          <label>Unit</label>
+          <label>
+            <input type="radio" ng-model="USGSUnit" name="USGSUnit" value="cfs">
+            CFS
+          </label>
+          <label>
+            <input type="radio" ng-model="USGSUnit" name="USGSUnit" value="feet">
+            Feet
+          </label>
+        </div>
+
+      </div>
+      <div class="grid-block">
+        <div class="grid-content text-right">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" ng-click="entryForm.$valid && saveRun();">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>

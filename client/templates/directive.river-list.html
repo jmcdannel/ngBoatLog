@@ -8,6 +8,9 @@
   <tbody>
     <tr ng-repeat="river in rivers">
       <td>
+        <a ui-sref="run-edit({ run: river.$id })">
+          <i class="material-icons">mode_edit</i>
+        </a>
         {{river.$id}}
       </td>
       <td style="white-space:nowrap">

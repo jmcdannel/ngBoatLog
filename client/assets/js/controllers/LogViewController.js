@@ -9,7 +9,7 @@
  * Controller of the boatlogApp
  */
 angular.module('boatlogApp')
-  .controller('LogEntryController', function (
+  .controller('LogViewController', function (
     $scope,
     $rootScope,
     $firebaseArray,

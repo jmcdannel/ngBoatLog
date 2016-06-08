@@ -50,3 +50,27 @@ To run the compiling process once, without watching any files, use the `build` c
 ```bash
 npm start build
 ```
+
+## UI Lib References
+https://getmdl.io/
+https://design.google.com/icons/
+http://foundation.zurb.com/frameworks-docs.html
+
+## Roadmap
+  - ~~Display log by year~~
+  - Log Detail
+  - Log Edit
+  - Better Precision with auto-fill flow
+  - River Detail w/usgs data
+  - Redesign Login Screen, enable other login methods
+  - Allow River Aliases
+  - Custom put-in, take-out, calculate vertical
+  - Type-ahead for runs, rivers
+  - Custom River list on home page (favs, custom sorting)
+  - River list sorting (name, drainage)
+  - Custom Log sorting
+  - Tag Friends
+  - Run Details (single/multi day, access, notes)
+  - Refine Form Layout
+  - Stats
+  - Friends
