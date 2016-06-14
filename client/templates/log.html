@@ -8,8 +8,8 @@
       <div zf-as-button="" title="{{year}}"></div>
       <div zf-as-content="" position="bottom">
         <ul>
-          <li><a ui-sref="log({ year: 'All' })">Show All</a></li>
-          <li ng-repeat="year in years"><a ui-sref="log({ year: year })">{{year}}</a></li>
+          <li><a ui-sref="log.byyear({ year: 'All' })">Show All</a></li>
+          <li ng-repeat="year in years"><a ui-sref="log.byyear({ year: year })">{{year}}</a></li>
         </ul>
       </div>
     </div>
@@ -30,3 +30,4 @@
 <div class="grid-block">
   <log-table runs="runs"></log-table>
 </div>
+<div ui-view></div>

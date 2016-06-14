@@ -1,0 +1,31 @@
+
+<div class="grid-container">
+  <h3 class="section-title">
+    <strong>{{entry.rundate | date: 'M/d'}}</strong>
+    {{entry.section}}
+  </h3>
+  <log-entry-details entry="entry" run="run"></log-entry-details>
+  <div class="grid-block" ng-show="entry.notes">
+    <div class="small-12 grid-content">
+      <p class="notes">{{entry.notes}}</p>
+    </div>
+  </div>
+
+
+  <h3 class="section-title">Current Flow</h3>
+  <div class="grid-block">
+    <div class="small-12 grid-content">
+      <canvas id="line" class="chart chart-line" chart-data="data"
+        chart-labels="labels" chart-legend="false" chart-series="series"
+        chart-click="onClick" >
+      </canvas>
+    </div>
+  </div>
+  <h3 class="section-title">Stats</h3>
+
+  <div class="grid-block wrap">
+    <div class="small-12 grid-content text-center">
+      <p>TODO</p>
+    </div>
+  </div>
+</div>

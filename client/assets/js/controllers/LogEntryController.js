@@ -18,20 +18,63 @@ angular.module('boatlogApp')
     $timeout,
     UserLog,
     Run,
+    Runs,
     FoundationApi,
     currentAuth) {
 
     var run = null;
-        var sectionTimer = false;
+    var sectionTimer = false;
+
+    var runs = new Runs();
+    var runNames = [];
+
+    runs.$loaded(function() {
+
+      _.each(runs, function(run) {
+        runNames.push(run.$id);
+      });
+      $scope.runs = runNames;
+      console.log(runNames);
+    });
+
+    $rootScope.mainCssClass = 'blur-bg-1';
 
     $scope.rundate = new Date();
+    $scope.rundate.setHours(12);
+    $scope.rundate.setMinutes(0);
+    $scope.rundate.setSeconds(0);
+    $scope.rundate.setMilliseconds(0);
+    $scope.runtime = $scope.rundate;
     $rootScope.pageTitle = 'Add Log Entry';
     $scope.days = '1';
     $scope.numruns = '1';
     $scope.addRun = addRun;
     $scope.$watch('section', loadRun);
     $scope.$watch('rundate', loadFlow);
+    $scope.$watch('runtime', loadFlow);
 
+    // gives another movie array on change
+    $scope.updateRuns = function(typed){
+      var filteredRuns = _.filter(runNames, function(runName) {
+        return (runName.indexOf(typed) >= 0);
+      });
+      $scope.runs = filteredRuns;
+      console.log('filteredRuns', filteredRuns);
+
+        // MovieRetriever could be some service returning a promise
+        // $scope.newmovies = MovieRetriever.getmovies(typed);
+        // $scope.newmovies.then(function(data){
+        //   $scope.movies = data;
+        // });
+        // runs.$loaded(function() {
+        //   var filteredRuns = _.filter(runs, function(run) {
+        //     console.log(un.$id, typed, run.$id.indexOf(typed));
+        //     return (run.$id.indexOf(typed) > 0);
+        //   });
+        //$scope.runs.$loaded;
+    }
+
+    //TODO: debounce
     function loadRun() {
         if(sectionTimer){
           $timeout.cancel(sectionTimer)
@@ -55,6 +98,7 @@ angular.module('boatlogApp')
         }, 250);
     }
 
+    //TODO: debounce
     function loadFlow() {
       if (run === null) {
         return;
@@ -62,7 +106,8 @@ angular.module('boatlogApp')
       var date = new Date($scope.rundate);
       date.setSeconds(0);
       date.setMilliseconds(0);
-      date.setMinutes(0);
+      date.setMinutes($scope.runtime.getMinutes());
+      date.setHours($scope.runtime.getHours());
       run.getFlow($scope.rundate).then(function(result) {
         $scope.flow = result.flow;
         FoundationApi.publish('usgs-notifications', 'clearall');

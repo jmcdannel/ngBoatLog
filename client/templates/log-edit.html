@@ -1,0 +1,85 @@
+
+<div class="grid-container">
+  <div class="grid-block">
+
+    <form name="entryForm" class="form">
+      <div class="grid-block wrap">
+        <div class="small-12 medium-4 grid-content">
+          <label>
+            Dates
+            <input type="date" id="rundate" ng-model="rundate" placeholder="" ng-required="true">
+          </label>
+        </div>
+        <div class="small-12 medium-4 grid-content">
+          <label>
+            Section
+            <input type="text" id="section" ng-model="entry.section" placeholder="" ng-required="true">
+          </label>
+        </div>
+        <div class="small-12 medium-4 grid-content">
+          <label>
+            River
+            <input type="text" id="river" ng-model="entry.river" placeholder="" ng-required="true">
+          </label>
+        </div>
+      </div>
+      <div class="grid-block wrap">
+        <div class="small-6 medium-3 grid-content">
+          <label>
+            <span class="inline-label">
+              <input type="text" id="days" ng-model="entry.days" placeholder="" ng-required="true">
+              <span class="form-label">Days</span>
+            </span>
+          </label>
+        </div>
+        <div class="small-6 medium-3 grid-content">
+          <label>
+            <span class="inline-label">
+              <input type="text" id="numruns" ng-model="entry.numruns" placeholder="" ng-required="true">
+              <span class="form-label">Runs</span>
+            </span>
+          </label>
+        </div>
+        <div class="small-6 medium-3 grid-content">
+          <label>
+            <span class="inline-label">
+              <input type="text" id="miles" ng-model="entry.miles" placeholder="" ng-required="true">
+              <span class="form-label">Miles</span>
+            </span>
+          </label>
+        </div>
+        <div class="small-6 medium-3 grid-content">
+          <label>
+            <span class="inline-label">
+              <input type="text" id="vertical" ng-model="entry.vertical" placeholder="" ng-required="true">
+              <span class="form-label">Feet</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="small-3 grid-content">
+          <label>
+            Flow
+            <input type="text" id="flow" ng-model="entry.flow" placeholder="" ng-required="true">
+          </label>
+        </div>
+        <div class="small-9 grid-content">
+          <label>
+            Notes
+            <textarea rows="3" id="notes" ng-model="entry.notes"></textarea>
+          </label>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-content text-right">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" ng-click="entryForm.$valid && saveEntry();">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <zf-notification-set id="usgs-notifications" position="bottom-right"></zf-notification-set>
+
+</div>

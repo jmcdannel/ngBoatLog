@@ -35,9 +35,12 @@ var paths = {
     'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
     'bower_components/tether/tether.js',
     'bower_components/hammerjs/hammer.js',
+    'bower_components/Chart.js/Chart.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
+    'bower_components/angular-chart.js/dist/angular-chart.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/allmighty-autocomplete/script/autocomplete.js',
     'bower_components/foundation-apps/js/vendor/**/*.js',
     'bower_components/foundation-apps/js/angular/**/*.js',
 

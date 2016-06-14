@@ -1,24 +1,44 @@
 
-<div class="grid-container">
+<div class="grid-container ">
+
   <div class="grid-block">
 
     <form name="entryForm" class="form">
+
+      <div class="grid-block has-dropdown">
+        <div class="small-12 grid-content">
+        <label>
+          Section
+          <autocomplete ng-model="section" data="runs" on-type="updateRuns"></autocomplete>
+
+        </label>
+        </div>
+      </div>
       <div class="grid-block wrap">
-        <div class="small-12 medium-4 grid-content">
+        <div class="small-6 grid-content">
           <label>
             Date
             <input type="date" id="rundate" ng-model="rundate" placeholder="" ng-required="true">
           </label>
         </div>
-        <div class="small-12 medium-4 grid-content">
+        <div class="small-6 grid-content">
           <label>
-            Section
-            <input type="text" id="section" ng-model="section" placeholder="" ng-required="true">
+            Time
+            <input type="time" id="runtime" ng-model="runtime" placeholder="" ng-required="true">
           </label>
         </div>
-        <div class="small-12 medium-4 grid-content">
+      </div>
+      <div class="grid-block wrap">
+
+          <div class="small-6 grid-content">
+            <label>
+              Flow
+              <input type="text" id="flow" ng-model="flow" placeholder="" ng-required="true">
+            </label>
+          </div>
+        <div class="small-6 grid-content">
           <label>
-            River
+            River / Drainage
             <input type="text" id="river" ng-model="river" placeholder="" ng-required="true">
           </label>
         </div>
@@ -58,13 +78,7 @@
         </div>
       </div>
       <div class="grid-block">
-        <div class="small-3 grid-content">
-          <label>
-            Flow
-            <input type="text" id="flow" ng-model="flow" placeholder="" ng-required="true">
-          </label>
-        </div>
-        <div class="small-9 grid-content">
+        <div class="small-12 grid-content">
           <label>
             Notes
             <textarea rows="3" id="notes" ng-model="notes"></textarea>
@@ -72,11 +86,14 @@
         </div>
       </div>
       <div class="grid-block">
-        <div class="grid-content text-right">
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" ng-click="entryForm.$valid && addRun();">
-            Save
-          </button>
+        <div class="small-6 grid-content">
+          <a ui-sref="log.current" class="cancel-btn">Cancel</a>
         </div>
+          <div class="small-6 grid-content text-right">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" ng-click="entryForm.$valid && addRun();">
+              Save
+            </button>
+          </div>
       </div>
     </form>
   </div>

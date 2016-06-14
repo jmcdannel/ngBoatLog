@@ -2,16 +2,23 @@
 @import "foundation";
 @import "partials/material";
 
+$red: #DA291C;
+$light-gray: #EEE;
+$dark-gray: #333;
+$gray: #8B8B8B;
+$light-blue: #107CC0;
+$dark-blue: #004990;
+
 
 //https://color.adobe.com/Canada-Post-Theme-color-theme-8085969/edit/?copy=true&base=2&rule=Custom&selected=1&name=Copy%20of%20Canada%20Post%20Theme&mode=rgb&rgbvalues=0.8549019607843137,0.1607843137254902,0.10980392156862745,0.06274509803921569,0.48627450980392156,0.7529411764705882,0,0.28627450980392155,0.5647058823529412,0.2,0.2,0.2,0.5450980392156862,0.5450980392156862,0.5450980392156862&swatchOrder=0,1,2,3,4
 
 body {
   background: #222;
-  color: #EEE;
+  color: $light-gray;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #EEE;
+  color: $light-gray;
 }
 
 main {
@@ -20,13 +27,30 @@ main {
   }
 }
 
-log-table, river-list {
+.grid-block.has-dropdown {
+  overflow: visible;
+  z-index: 1;
+
+  .grid-content {
+    overflow: visible;
+  }
+}
+
+.blur-bg-1 {
+  background-color: #222;
+  background-image: url(/assets/img/blur-bg-1.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+log-table, river-list, log-entry-details {
   width: 100%;
 }
 .runs, .rivers {
   width: 100%;
   margin-bottom: 100px;
-  background: #107CC0;
+  background: $light-blue;
 
   th {
     white-space: nowrap;
@@ -37,18 +61,30 @@ log-table, river-list {
   td, th {
     padding: 1em;
     text-align: left;
+
+
+    @include breakpoint(small only) {
+      padding: .7em;
+    }
+
+    &.action-col {
+      padding: 1em 0 1em .5em;
+      @include breakpoint(small only) {
+        padding: .7em 0 .7em .5em;
+      }
+    }
   }
 
   tbody > tr > td {
-    //border-bottom: 1px solid #EEE;
-    color: #EEE;
+    //border-bottom: 1px solid $light-gray;
+    color: $light-gray;
     small {
       color: #DDD;
     }
   }
 
   tbody > tr:nth-child(even) td {
-    background: smartscale(#107CC0, 10%);
+    background: smartscale($light-blue, 10%);
   }
 
   .extra {
@@ -114,22 +150,208 @@ log-table, river-list {
   }
 }
 
+.section-title {
+  margin-top: 0;
+  font-size: 1.4em;
+  padding: .2em 1em;
+  background: smartscale($dark-blue, -50%);
+  strong {
+    background: $light-blue;
+    padding: .2em;
+    border-radius: .2em;
+    font-weight: normal;
+  }
+}
+
 .form {
   padding: 2em 0;
   label {
-    color: #107CC0;
+    color: $dark-blue;
+  }
+
+  input, textarea {
+    background: $light-blue;
+    color: $light-gray;
+    border: 0;
   }
 }
+
+.inline-label > .form-label {
+  background: $dark-blue;
+  color: $light-gray;
+  border: 0;
+}
+
 
 .flow-label {
   font-size: 1.5em;
 }
 
-#btn-addrun {
+[zf-panel] {
+  p {
+    padding: 20px;
+    color: #333;
+    font-size: 1.2em;
+  }
+}
+
+#btn-addrun, .add-btn {
   position: fixed;
   z-index: 100;
   right: 1em;
   bottom: 1em;
   background: #DA291C;
   color: #FFF;
+}
+
+.single-line {
+  white-space: nowrap;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  @include breakpoint(small only) {
+    max-width: 12em;
+  }
+  @include breakpoint(medium only) {
+    max-width: 15em;
+  }
+}
+
+.section-col {
+  @include breakpoint(small only) {
+    max-width: 12em;
+  }
+  @include breakpoint(medium only) {
+    max-width: 15em;
+  }
+}
+
+[data-action] {
+  cursor: pointer;
+}
+
+.log-stat-detail {
+  padding: 1em;
+  margin: 1em 0;
+  border: 1px solid smartscale($dark-gray, 2%);
+  border-radius: .3em;
+
+  strong {
+    font-size: 2em;
+    font-weight: normal;
+  }
+  span {
+    display: block;
+    font-size: .8em;
+    color: $light-blue;
+  }
+}
+
+.notes {
+  background: smartscale($dark-gray, 2%);
+  padding: 1em;
+  border-radius: .3em;
+}
+
+/* AUTOCOMPLETE */
+
+.autocomplete {
+  width: 100%;
+  position: relative;
+}
+
+.autocomplete input{
+  font-size: 1.2em;
+  width: 100%;
+  padding:0.4em;
+}
+
+.autocomplete ul{
+  // position: fixed;
+  // width: 96%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-left: 1px solid #888;
+  border-right: 1px solid #888;
+  border-bottom: 1px solid #888;
+  //z-index: 1;
+  margin-left: 0;
+  margin-top: -14px;
+  @include breakpoint(large) {
+    //width: 45%;
+  }
+
+}
+
+.autocomplete li{
+  text-align: left;
+  list-style:none;
+  width: 100%;
+  padding:0.4em;
+  background-color: #fff;
+}
+
+.autocomplete li.active{
+  width: 100%;
+  background-color: #4bf;
+}
+
+.autocomplete .highlight {
+  background-color: #E2E2E2;
+}
+
+.autocomplete li.active .highlight {
+  background: #666;
+  color: #fff;
+}
+
+.chart-legend,
+.bar-legend,
+.line-legend,
+.pie-legend,
+.radar-legend,
+.polararea-legend,
+.doughnut-legend {
+  list-style-type: none;
+  margin-top: 5px;
+  text-align: center;
+  /* NOTE: Browsers automatically add 40px of padding-left to all lists, so we should offset that, otherwise the legend is off-center */
+  -webkit-padding-start: 0;
+  /* Webkit */
+  -moz-padding-start: 0;
+  /* Mozilla */
+  padding-left: 0;
+  /* IE (handles all cases, really, but we should also include the vendor-specific properties just to be safe) */
+}
+.chart-legend li,
+.bar-legend li,
+.line-legend li,
+.pie-legend li,
+.radar-legend li,
+.polararea-legend li,
+.doughnut-legend li {
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 4px;
+  border-radius: 5px;
+  padding: 2px 8px 2px 28px;
+  font-size: smaller;
+  cursor: default;
+}
+.chart-legend-icon,
+.bar-legend-icon,
+.line-legend-icon,
+.pie-legend-icon,
+.radar-legend-icon,
+.polararea-legend-icon,
+.doughnut-legend-icon {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
 }

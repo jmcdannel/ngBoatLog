@@ -9,15 +9,10 @@
  * Controller of the boatlogApp
  */
 angular.module('boatlogApp')
-  .controller('LogController', function ($scope, $rootScope, $stateParams, UserLog, currentAuth) {
+  .controller('LogController', function ($scope, $rootScope, $state, $stateParams, UserLog, currentAuth) {
 
     $rootScope.pageTitle = 'Log';
-
-    if ($stateParams.year === '') {
-      $scope.year = new Date().getFullYear();
-    } else {
-      $scope.year = $stateParams.year;
-    }
+    $scope.year = $stateParams.year;
 
     var log = new UserLog(currentAuth.uid);
 

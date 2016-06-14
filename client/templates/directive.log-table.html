@@ -1,8 +1,9 @@
 <table class="runs">
   <thead>
     <tr class="runs-column-labels">
+      <th></th>
       <th>Date</th>
-      <th>Section</th>
+      <th class="section-col">Section</th>
       <th>
         Days
         <span class="extra"> / Runs</span></th>
@@ -13,9 +14,12 @@
   </thead>
   <tbody>
     <tr ng-repeat="run in runs">
+      <td class="action-col">
+        <i ui-sref="log.detail({ entry: run.$id })" data-action class="material-icons">info</i>
+      </td>
       <td>{{run.rundate | date: 'M/d'}}</td>
       <td>
-        {{run.section}}
+        <span class="single-line">{{run.section}}</span>
       </td>
       <td style="white-space:nowrap">
         {{run.days}} <small class="extra">day(s)</small>

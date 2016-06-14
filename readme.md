@@ -58,19 +58,21 @@ http://foundation.zurb.com/frameworks-docs.html
 
 ## Roadmap
   - ~~Display log by year~~
-  - Log Detail
-  - Log Edit
-  - Better Precision with auto-fill flow
+  - ~~Display log notes~~
+  - ~~Log Edit~~
+  - ~~Better Precision with auto-fill flow~~
+  - ~~Type-ahead for runs~~
   - River Detail w/usgs data
+  - Custom River list on home page (favs, custom sorting)
   - Redesign Login Screen, enable other login methods
   - Allow River Aliases
   - Custom put-in, take-out, calculate vertical
-  - Type-ahead for runs, rivers
-  - Custom River list on home page (favs, custom sorting)
+  - Type-ahead for  rivers
   - River list sorting (name, drainage)
   - Custom Log sorting
   - Tag Friends
   - Run Details (single/multi day, access, notes)
   - Refine Form Layout
+  - Log Detail
   - Stats
   - Friends

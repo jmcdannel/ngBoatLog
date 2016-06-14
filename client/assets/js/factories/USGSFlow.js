@@ -52,28 +52,34 @@
         return (now.getTime() - lastUpdated.getTime() > expiry);
       }
 
-      function _getFlow(siteId, unitType, date) {
+      function _getFlow(siteId, unitType, options) {
         var defered = $q.defer();
-        var period = 'PT2H';
+        var options = options || {};
+        var period = options.period || 'PT2H';
         var params = {
           format: 'json',
           site: siteId,
           parameterCd: _getUnitParam(unitType)
         };
-        if (date) {
-          angular.extend(params, _getDateRange(date));
+        if (options.date) {
+          angular.extend(params, _getDateRange(options.date));
         } else {
           angular.extend(params, { period: period });
         }
 
         var handleResponse = function(data) {
           var flows = data.value.timeSeries[0].values[0].value;
-          var currentFlow = flows[flows.length-1];
 
-          defered.resolve({
-            flow: currentFlow.value,
-            datetime: new Date(currentFlow.dateTime)
-          });
+          if (options.range) {
+            defered.resolve(flows);
+          } else {
+            defered.resolve({
+              flow: flows[flows.length-1].value,
+              datetime: new Date(flows[flows.length-1].dateTime)
+            });
+          }
+
+
         }
 
         $http({
